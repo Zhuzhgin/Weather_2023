@@ -17,7 +17,33 @@ enum NetworkError: Error {
 class NetworkManager {
     static var shared = NetworkManager()
     
+    
+    
     private init () {}
+    
+    
+    func fetchPhoto(url: String, completion: @escaping (Result<UIImage,NetworkError>) -> ()) {
+        guard let url = URL(string: url) else {
+            completion(.failure(.invalidUrl))
+            return
+        }
+    
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            guard let data = data else {
+                completion(.failure(.invalidData))
+                return
+            }
+            DispatchQueue.main.async {
+                guard let photo = UIImage(data: data) else {
+                    completion(.failure(.decodingError))
+                    return
+                }
+                completion(.success(photo))
+            }
+            
+            
+        } .resume()
+    }
     
     func fetchWeather(url: String, complition: @escaping(Result<Weather, NetworkError>)-> Void) {
         
@@ -25,6 +51,7 @@ class NetworkManager {
             complition(.failure(.invalidUrl))
             return
         }
+        
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data else {
