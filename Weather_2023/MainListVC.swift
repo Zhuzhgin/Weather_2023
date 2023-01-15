@@ -7,18 +7,16 @@
 
 import UIKit
 
-//var cities = ["Tyumen", "Moscow", "Ekaterinburg", "Ufa", "Tbilisi", "Sheregesh", "mineral", "Erevan", "Antalya"]
-
-
 
 class MainListVC: UIViewController {
+    
     var cities = City.getCities()
     var weatherColection: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray2
- 
+        navigationController?.navigationBar.backgroundColor = .blue
         setupWeatherCollection()
     }
     
@@ -92,20 +90,12 @@ extension MainListVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
         let cityInfoVC = CityInfoVC(city: cityItem)
         cityInfoVC.view.backgroundColor = .lightGray
-        
-        
-      
-        print(cityItem.cityName.rawValue )
-        cityInfoVC.aaa = "BBBBB"
      
-        
-        
-        
-        
         cityInfoVC.cityName.text = cities[indexPath.item].cityName.rawValue
       
-        present(cityInfoVC, animated: true, completion: nil)
-       // cityInfoVC.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(cityInfoVC, animated: true)
+      //  present(cityInfoVC, animated: true, completion: nil)
+       cityInfoVC.modalPresentationStyle = .fullScreen
     }
     
 }

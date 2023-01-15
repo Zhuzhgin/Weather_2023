@@ -19,6 +19,7 @@ enum Cities: String {
     case mineralVodi = "mineral"
     case erevan = "Erevan"
     case antalya = "Antalya"
+    case bangkok = "Bangkok"
 }
 struct City {
     var cityName: Cities
@@ -41,7 +42,8 @@ struct City {
             City(cityName: .moscow, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/01/Moscow_July_2011-16.jpg", weatherURL: weatherWebURL + Cities.moscow.rawValue),
             City(cityName: .sheregesh, imageUrl: "https://sheregesh-hotels.ru/assets/gallery/431/7151.jpg", weatherURL: weatherWebURL + Cities.sheregesh.rawValue),
             City(cityName: .tbilisi, imageUrl: "https://lebristolgeorgia.ru/wp-content/uploads/2017/03/%D0%A2%D0%B1%D0%B8%D0%BB%D0%B8%D1%81%D0%B8-1.jpg", weatherURL: weatherWebURL + Cities.tbilisi.rawValue),
-            City(cityName: .ufa, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Belaya_River%2C_Ufa-5.jpg/300px-Belaya_River%2C_Ufa-5.jpg", weatherURL: weatherWebURL + Cities.ufa.rawValue)
+            City(cityName: .ufa, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Belaya_River%2C_Ufa-5.jpg/300px-Belaya_River%2C_Ufa-5.jpg", weatherURL: weatherWebURL + Cities.ufa.rawValue),
+            City(cityName: .bangkok, imageUrl: "https://cdn2.tu-tu.ru/image/pagetree_node_data/6/c2db5cad56372bee03c2ce6ea19c09b1/", weatherURL: weatherWebURL + Cities.bangkok.rawValue)
         ]
         
         

@@ -14,9 +14,11 @@ enum NetworkError: Error {
 }
 
 
+
 class NetworkManager {
     static var shared = NetworkManager()
     
+    let cache = NSCache<NSString, UIImage>()
     
     
     private init () {}
@@ -27,22 +29,26 @@ class NetworkManager {
             completion(.failure(.invalidUrl))
             return
         }
-    
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            guard let data = data else {
-                completion(.failure(.invalidData))
-                return
-            }
-            DispatchQueue.main.async {
-                guard let photo = UIImage(data: data) else {
-                    completion(.failure(.decodingError))
+        if let photo = cache.object(forKey: url.absoluteString as NSString) {
+            completion(.success(photo))
+        } else {
+            URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data else {
+                    completion(.failure(.invalidData))
                     return
                 }
-                completion(.success(photo))
-            }
-            
-            
-        } .resume()
+                DispatchQueue.main.async {
+                    guard let photo = UIImage(data: data) else {
+                        completion(.failure(.decodingError))
+                        return
+                    }
+                    self.cache.setObject(photo, forKey: url.absoluteString as NSString)
+                    completion(.success(photo))
+                }
+                
+                
+            } .resume()
+        }
     }
     
     func fetchWeather(url: String, complition: @escaping(Result<Weather, NetworkError>)-> Void) {

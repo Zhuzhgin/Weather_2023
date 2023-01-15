@@ -11,19 +11,28 @@ class CityInfoVC: UIViewController {
    
     private let city: City
 
-    var aaa: String!
+    let activityIndicator = UIActivityIndicatorView()
     
-    let cityName = UILabel(frame: CGRect(x: 10, y: 10, width: 300, height: 100))
+    let cityName = UILabel(frame: CGRect(x: 50, y: 50, width: 300, height: 100))
     
-    let cityPhoto = UIImageView()
+    var cityPhotoView  = UIImageView()
+    
+    var cityPhoto = UIImage()
+    {
+        didSet {
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            cityPhotoView.image = cityPhoto
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         view.addSubview(cityName)
-        setupPhotoImage()
+        setupActivityIndicator()
+        setupPhotoImageView()
         
-     
         setConnstraints()
        
     }
@@ -38,40 +47,43 @@ class CityInfoVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func setupPhotoImage() {
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.color = .black
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+     func setupPhotoImageView() {
      
-        view.addSubview(cityPhoto)
-        cityPhoto.translatesAutoresizingMaskIntoConstraints = false
-
-        
-//        guard let cityItem = city else {
-//            print("!!!Error")
-//            return
-//        }
+        view.addSubview(cityPhotoView)
+        cityPhotoView.translatesAutoresizingMaskIntoConstraints = false
+        cityPhotoView.contentMode = .scaleAspectFit
         let url = city.imageUrl
-        print(url)
         
-        
-       
         NetworkManager.shared.fetchPhoto(url: url) { (result) in
             switch result {
             
             case .success(let photo):
-                self.cityPhoto.image = photo
+                self.cityPhoto = photo
             case .failure(let error):
                 print(error)
             }
         }
-        
     }
    
     private func setConnstraints() {
-        
+
         NSLayoutConstraint.activate([
-            cityPhoto.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            cityPhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            cityPhoto.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            cityPhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: 200)
+            cityPhotoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            cityPhotoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cityPhotoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cityPhotoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            activityIndicator.centerXAnchor.constraint(equalTo: cityPhotoView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: cityPhotoView.centerYAnchor)
         
         ])
         
