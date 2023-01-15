@@ -20,6 +20,7 @@ enum Cities: String {
     case erevan = "Erevan"
     case antalya = "Antalya"
     case bangkok = "Bangkok"
+    case istambul = "Istambul"
 }
 struct City {
     var cityName: Cities
