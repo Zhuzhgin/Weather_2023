@@ -34,9 +34,12 @@ class NetworkManager {
         } else {
             URLSession.shared.dataTask(with: url) { (data, _, error) in
                 guard let data = data else {
+                    
                     completion(.failure(.invalidData))
                     return
                 }
+                
+       
                 DispatchQueue.main.async {
                     guard let photo = UIImage(data: data) else {
                         completion(.failure(.decodingError))

@@ -10,7 +10,7 @@ import UIKit
 class CityWeatherCell: UICollectionViewCell {
     
     static var reuseID = "cityCell"
-    let cityPhoto = UIImageView()
+    //let cityPhoto = UIImageView()
     let cityName = UILabel()
     let temperature = UILabel()
 
@@ -18,7 +18,7 @@ class CityWeatherCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLabel()
-        setupPhoto()
+      //  setupPhoto()
         setConstreints()
         self.layer.cornerRadius = 4
         self.clipsToBounds = true
@@ -32,12 +32,12 @@ class CityWeatherCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
     }
     
-    func setupPhoto() {
-        contentView.addSubview(cityPhoto)
-        cityPhoto.translatesAutoresizingMaskIntoConstraints = false
-        
-    }
-    
+//    func setupPhoto() {
+//        contentView.addSubview(cityPhoto)
+//        cityPhoto.translatesAutoresizingMaskIntoConstraints = false
+//
+//    }
+//
     func setupLabel() {
         contentView.addSubview(cityName)
         contentView.addSubview(temperature)
@@ -51,12 +51,12 @@ class CityWeatherCell: UICollectionViewCell {
             cityName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             cityName.centerYAnchor.constraint(equalTo: centerYAnchor),
             temperature.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            temperature.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cityPhoto.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -5),
-            cityPhoto.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cityPhoto.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            cityPhoto.widthAnchor.constraint(equalTo: contentView.heightAnchor)
-            
+            temperature.centerYAnchor.constraint(equalTo: centerYAnchor)
+//            cityPhoto.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -5),
+//            cityPhoto.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            cityPhoto.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//            cityPhoto.widthAnchor.constraint(equalTo: contentView.heightAnchor)
+//
         ])
         
         

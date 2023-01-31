@@ -12,12 +12,14 @@ class MainListVC: UIViewController {
     
     var cities = City.getCities()
     var weatherColection: UICollectionView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray2
         navigationController?.navigationBar.backgroundColor = .blue
         setupWeatherCollection()
+      
     }
     
     
@@ -56,42 +58,47 @@ extension MainListVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityWeatherCell.reuseID, for: indexPath) as! CityWeatherCell
-        let cityWeatherUrl = cities[indexPath.item].weatherURL
+        let city = cities[indexPath.item]
+        let cityWeatherUrl = city.weatherURL
         
         NetworkManager.shared.fetchWeather(url: cityWeatherUrl, complition: { (result) in
             
             switch result {
             case .success(let weather):
+                self.cities[indexPath.item].currentWeather = weather
                 cell.cityName.text = weather.location.name
                 cell.temperature.text = String(weather.current.temp_c)
             case .failure(let error):
+                
                 print(error)
             }
             
         }
         )
-        let cityPhotoUrl = cities[indexPath.item].imageUrl
-       
-        NetworkManager.shared.fetchPhoto(url: cityPhotoUrl) { (result) in
-            switch result {
-            
-            case .success(let photo):
-                cell.cityPhoto.image = photo
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
+//        let cityPhotoUrl = cities[indexPath.item].imageUrl
+//
+//        NetworkManager.shared.fetchPhoto(url: cityPhotoUrl) { (result) in
+//            switch result {
+//
+//            case .success(let photo):
+//                cell.cityPhoto.image = photo
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//        
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cityItem = cities[indexPath.item]
 
+        
         let cityInfoVC = CityInfoVC(city: cityItem)
         cityInfoVC.view.backgroundColor = .lightGray
      
-        cityInfoVC.cityName.text = cities[indexPath.item].cityName.rawValue
+        cityInfoVC.cityName.text = " Citi: \(cities[indexPath.item].cityName.rawValue) t: "
+      
       
         navigationController?.pushViewController(cityInfoVC, animated: true)
       //  present(cityInfoVC, animated: true, completion: nil)
@@ -99,3 +106,4 @@ extension MainListVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
 }
+

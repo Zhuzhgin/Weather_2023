@@ -16,7 +16,7 @@ enum Cities: String {
     case ufa = "Ufa"
     case tbilisi = "Tbilisi"
     case sheregesh = "Sheregesh"
-    case mineralVodi = "mineral"
+    case mineral = "mineral"
     case erevan = "Erevan"
     case antalya = "Antalya"
     case bangkok = "Bangkok"
@@ -26,6 +26,7 @@ struct City {
     var cityName: Cities
     var imageUrl: String
     var weatherURL: String
+    var currentWeather: Weather?
     
     static func getCities() -> [City] {
         return [
@@ -39,7 +40,7 @@ struct City {
                 weatherURL: weatherWebURL + Cities.antalya.rawValue),
            City(cityName: .ekat, imageUrl: "https://wikiway.com/upload/iblock/ed1/Gorodskoy-prud-Ekaterinburga.jpg", weatherURL: weatherWebURL + Cities.ekat.rawValue),
             City(cityName: .erevan, imageUrl: "https://www.tripzaza.com/ru/destinations/wp-content/uploads/2018/07/Dostoprimechatelnosti-Erevana-e1531302765198.jpg", weatherURL: weatherWebURL + Cities.erevan.rawValue),
-            City(cityName: .mineralVodi, imageUrl: "https://gkd.ru/assets/i/ai/4/1/3/i/2757363.jpg", weatherURL: weatherWebURL + Cities.mineralVodi.rawValue),
+            City(cityName: .mineral, imageUrl: "https://gkd.ru/assets/i/ai/4/1/3/i/2757363.jpg", weatherURL: weatherWebURL + Cities.mineral.rawValue),
             City(cityName: .moscow, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/01/Moscow_July_2011-16.jpg", weatherURL: weatherWebURL + Cities.moscow.rawValue),
             City(cityName: .sheregesh, imageUrl: "https://sheregesh-hotels.ru/assets/gallery/431/7151.jpg", weatherURL: weatherWebURL + Cities.sheregesh.rawValue),
             City(cityName: .tbilisi, imageUrl: "https://lebristolgeorgia.ru/wp-content/uploads/2017/03/%D0%A2%D0%B1%D0%B8%D0%BB%D0%B8%D1%81%D0%B8-1.jpg", weatherURL: weatherWebURL + Cities.tbilisi.rawValue),
