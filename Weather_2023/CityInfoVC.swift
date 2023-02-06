@@ -14,7 +14,7 @@ class CityInfoVC: UIViewController {
 
     let activityIndicator = UIActivityIndicatorView()
     
-    let cityName = UILabel(frame: CGRect(x: 50, y: 50, width: 300, height: 100))
+    let cityName = UILabel(frame: CGRect(x: 50, y: 100, width: 300, height: 100))
     
     var cityPhotoView  = UIImageView()
     
@@ -93,14 +93,19 @@ class CityInfoVC: UIViewController {
     
     @objc func showButtonPressed () {
         CoreDataManager.shared.fetchData { (weathers) in
+            var cityWeatherHistory: [WeatherHistory] = []
             for weather in weathers {
                 if weather.name == city.currentWeather?.location.name {
+                    cityWeatherHistory.append(weather)
+
                     print("\(weather.name ?? "no data"), date: \(weather.date ?? Date() ), weather: \(weather.temperature ?? "no data")")
-                     
-                    
                 }
                 //CoreDataManager.shared.deleteWeatherHistory(weather: weather)
             }
+            let historyVC = TemperatureHicstoryVC(cityWeatherHistory: cityWeatherHistory)
+            
+            navigationController?.pushViewController(historyVC, animated: true)
+           
         }
         
     }
