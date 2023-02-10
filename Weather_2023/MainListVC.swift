@@ -25,7 +25,7 @@ class MainListVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray2
         navigationController?.navigationBar.backgroundColor = .blue
-        navigationController?.navigationBar.topItem?.title = "Cities Current Temperature"
+        navigationController?.navigationBar.topItem?.title = "Weather"
         navigationController?.navigationBar.largeContentTitle = "AAA"
         
         setupWeatherCollection()
@@ -33,7 +33,6 @@ class MainListVC: UIViewController {
     }
     
     @objc func refresh() {
-        weatherColection.reloadData()
         myRefreshControl.endRefreshing()
     }
     
@@ -112,7 +111,6 @@ extension MainListVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let cityInfoVC = CityInfoVC(city: cityItem)
         cityInfoVC.view.backgroundColor = .lightGray
      
-        cityInfoVC.cityName.text = " City: \(cities[indexPath.item].cityName.rawValue) "
       
       
         navigationController?.pushViewController(cityInfoVC, animated: true)

@@ -19,6 +19,7 @@
 		CACC4BD62969AF0400068F8F /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC4BD52969AF0400068F8F /* WeatherModel.swift */; };
 		CACC4BDA2969D0FD00068F8F /* CityWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC4BD92969D0FD00068F8F /* CityWeatherCell.swift */; };
 		CAD5AF022986EEAA00E9BEA8 /* TemperatureHicstoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5AF012986EEAA00E9BEA8 /* TemperatureHicstoryVC.swift */; };
+		CAD5AF0929940B3D00E9BEA8 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5AF0829940B3D00E9BEA8 /* WeatherCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CACC4BD52969AF0400068F8F /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		CACC4BD92969D0FD00068F8F /* CityWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherCell.swift; sourceTree = "<group>"; };
 		CAD5AF012986EEAA00E9BEA8 /* TemperatureHicstoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureHicstoryVC.swift; sourceTree = "<group>"; };
+		CAD5AF0829940B3D00E9BEA8 /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				CACC4BB72969AA9400068F8F /* AppDelegate.swift */,
 				CACC4BD12969AB2500068F8F /* MainListVC.swift */,
 				CAC5A810296B05DE003927A0 /* CityInfoVC.swift */,
+				CAD5AF0829940B3D00E9BEA8 /* WeatherCell.swift */,
 				CAD5AF012986EEAA00E9BEA8 /* TemperatureHicstoryVC.swift */,
 				CAC5A81329707E3E003927A0 /* CityModel.swift */,
 				CACC4BD52969AF0400068F8F /* WeatherModel.swift */,
@@ -159,6 +162,7 @@
 				CACC4BDA2969D0FD00068F8F /* CityWeatherCell.swift in Sources */,
 				CACC4BD22969AB2500068F8F /* MainListVC.swift in Sources */,
 				CACC4BB82969AA9400068F8F /* AppDelegate.swift in Sources */,
+				CAD5AF0929940B3D00E9BEA8 /* WeatherCell.swift in Sources */,
 				CAC5A81429707E3E003927A0 /* CityModel.swift in Sources */,
 				CACC4BD62969AF0400068F8F /* WeatherModel.swift in Sources */,
 				CAC7E80D297EEC4000D81887 /* CoreDataManager.swift in Sources */,

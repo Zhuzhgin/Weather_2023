@@ -13,6 +13,8 @@ class TemperatureHicstoryVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+     
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "tempCell")
         
@@ -83,6 +85,10 @@ class TemperatureHicstoryVC: UITableViewController {
        
        
         return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .insert
     }
 
 }
