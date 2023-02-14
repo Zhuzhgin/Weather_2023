@@ -13,12 +13,7 @@ class TemperatureHicstoryVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-     
-
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "tempCell")
-        
-
     }
     
     init(cityWeatherHistory: [WeatherHistory]) {
@@ -45,7 +40,6 @@ class TemperatureHicstoryVC: UITableViewController {
         return cityWeatherHisory.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tempCell", for: indexPath)
 
@@ -73,16 +67,13 @@ class TemperatureHicstoryVC: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete") { _,_,comletion in
             
-            
             CoreDataManager.shared.deleteWeatherHistory(weather: self.cityWeatherHisory[indexPath.row])
             self.cityWeatherHisory.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             print("delete weather history")
             comletion(true)
             tableView.reloadData()
-            
         }
-       
        
         return UISwipeActionsConfiguration(actions: [action])
     }

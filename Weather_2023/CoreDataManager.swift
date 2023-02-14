@@ -37,6 +37,11 @@ class CoreDataManager {
         saveContext()
     }
     
+//    func saveCity(cityName: String, weatherURL:String, imageURL: String ) {
+//        
+//        
+//    }
+    
     func saveWeather(cityName: String, date: Date, temperature: String, complition: (WeatherHistory) -> Void) {
         
         let weatherHistory = WeatherHistory(context: context)

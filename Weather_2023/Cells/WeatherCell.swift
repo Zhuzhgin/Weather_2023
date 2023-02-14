@@ -31,20 +31,22 @@ class WeatherCell: UICollectionViewCell {
     }
     
     private func setLabel() {
+        
         contentView.addSubview(mainLabel)
-        mainLabel.font = .boldSystemFont(ofSize: 30)
+       // mainLabel.font = .boldSystemFont(ofSize: 30)
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         mainLabel.textColor = .black
     }
     private func setConstraints() {
+        
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            header.heightAnchor.constraint(equalToConstant: 30),
+            //header.heightAnchor.constraint(equalToConstant: 30),
             header.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            mainLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            mainLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            mainLabel.heightAnchor.constraint(equalToConstant: 40)
+          //  mainLabel.heightAnchor.constraint(equalToConstant: 40)
         
         ])
     }

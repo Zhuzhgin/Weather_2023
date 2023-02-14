@@ -10,6 +10,8 @@ import UIKit
 
 class MainListVC: UIViewController {
     
+    let weatherWebURL = "http://api.weatherapi.com/v1/current.json?key=5aa2adb334244f9692653450220611&q="
+    
     var cities = City.getCities()
     var weatherColection: UICollectionView!
     
@@ -24,16 +26,60 @@ class MainListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray2
-        navigationController?.navigationBar.backgroundColor = .blue
-        navigationController?.navigationBar.topItem?.title = "Weather"
-        navigationController?.navigationBar.largeContentTitle = "AAA"
-        
+        navigationBarSet()
         setupWeatherCollection()
       
     }
     
+    private func navigationBarSet() {
+        navigationController?.navigationBar.backgroundColor = .blue
+        navigationController?.navigationBar.topItem?.title = "Weather"
+        navigationController?.navigationBar.largeContentTitle = "AAA"
+        let rightBarButton  = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightButtonTapped))
+        navigationItem.rightBarButtonItem = rightBarButton
+        
+    }
+    
+    @objc private func rightButtonTapped() {
+       print("Right Button Tapped")
+      
+        
+        alertAddNewCity { (name) in
+         
+        
+            NetworkManager.shared.fetchWeather(url: self.weatherWebURL + name) { (result) in
+            switch result {
+            
+            case .success(let weather):
+                print("New weather \(name) - \(weather.current.temp_c) ")
+            case .failure(_):
+                print("error - wrong cityName")
+            }
+        }
+        }
+    }
+    
     @objc func refresh() {
         myRefreshControl.endRefreshing()
+    }
+    
+    func alertAddNewCity(complition: @escaping(String) -> Void )  {
+        let alert = UIAlertController(title: "Add new city", message: "Enter city name", preferredStyle: .alert)
+ 
+        alert.addTextField { (textfield) in
+            textfield.placeholder = "Enter city"
+           
+        }
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            print (alert.textFields?[0].text ?? "unknown city" )
+            complition((alert.textFields?[0].text!)!)
+        })
+        
+        alert.addAction(okAction)
+        
+        
+        present(alert, animated: true) 
     }
     
     func setupWeatherCollection() {

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/artemzhuzhgin/Desktop/X-code_projects/Weather_2023/Weather_2023/Weather_2023.xcdatamodeld">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

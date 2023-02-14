@@ -38,7 +38,7 @@ class CityInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "\(city.cityName.rawValue)"
+        navigationItem.title = "\(city.cityName)"
         setLabel()
         setCollection()
         setSaveButton()
@@ -65,11 +65,9 @@ class CityInfoVC: UIViewController {
         fullInfoCollection.collectionViewLayout = createCompozitionLayout()
         fullInfoCollection.dataSource = self
         fullInfoCollection.delegate = self
-        fullInfoCollection.backgroundColor = .green
-//        let config = UICollectionViewCompositionalLayoutConfiguration()
-//        config.interSectionSpacing = 5
-//        config.interSectionSpacing = 5
-//
+        fullInfoCollection.backgroundColor = .systemGray
+        
+
        // fullInfoCollection.isScrollEnabled = false
         fullInfoCollection.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fullInfoCollection)
@@ -78,17 +76,26 @@ class CityInfoVC: UIViewController {
     
     private func createCompozitionLayout() -> UICollectionViewLayout {
         
-        let itemsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.49), heightDimension: .fractionalHeight(1))
+        let itemsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.49))
         let item = NSCollectionLayoutItem(layoutSize: itemsize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0)
        
-        let groupsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.49))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupsize, subitems: [item])
-       // group.interItemSpacing = .fixed(0)
+        let groupsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.49), heightDimension: .fractionalHeight(1))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupsize, subitems: [item])
+        
+
+        // group.interItemSpacing = .fixed(0)
+        
         let section = NSCollectionLayoutSection(group: group)
        //section.interGroupSpacing = 100
+       // section.orthogonalScrollingBehavior = .continuous
         let layout = UICollectionViewCompositionalLayout(section: section)
-    
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.scrollDirection = .horizontal
+        layout.configuration = config
+        
+        
         return layout
         
     }
@@ -109,6 +116,7 @@ class CityInfoVC: UIViewController {
         saveButton.setTitle("Save", for: .normal)
         saveButton.titleLabel?.tintColor = .red
         saveButton.backgroundColor = .blue
+        saveButton.layer.cornerRadius = 10
         
        
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
@@ -175,7 +183,7 @@ class CityInfoVC: UIViewController {
         cityPhotoView.image = UIImage(named: "Image")
         setupActivityIndicator()
 
-        let url = city.imageUrl
+        guard let url = city.imageUrl else {return}
         NetworkManager.shared.fetchPhoto(url: url) { (result) in
             switch result {
             
@@ -201,8 +209,8 @@ class CityInfoVC: UIViewController {
            
             fullInfoCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             fullInfoCollection.heightAnchor.constraint(equalToConstant: infoCollectionHeight),
-            fullInfoCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            fullInfoCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            fullInfoCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            fullInfoCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             
             cityPhotoView.heightAnchor.constraint(equalToConstant: photoViewHeight),
             cityPhotoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -231,7 +239,7 @@ class CityInfoVC: UIViewController {
 
 extension CityInfoVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -243,17 +251,27 @@ extension CityInfoVC: UICollectionViewDataSource, UICollectionViewDelegate {
             cell.header.text = "Temperature, C"
             cell.mainLabel.text = String(city.currentWeather?.current.temp_c ?? 0)
         case 1:
-            cell.header.text = "Pressure"
-            cell.mainLabel.text = String(city.currentWeather?.current.pressure_mb ?? 0)
+            cell.header.text = "Feels Like, C"
+            cell.mainLabel.text = String(city.currentWeather?.current.feelslike_c ?? 0)
         case 2:
             
             cell.header.text = "Wind direction"
             cell.mainLabel.text = city.currentWeather?.current.wind_dir
 
-        default:
+        case 3:
             cell.header.text = "Wind speed"
             cell.mainLabel.text = "\(city.currentWeather?.current.wind_kph ?? 0 ) kph"
 
+        case 4:
+            cell.header.text = "Pressure"
+            cell.mainLabel.text = String(city.currentWeather?.current.pressure_mb ?? 0)
+            
+        
+        
+       default :
+            cell.header.text = "Pressure"
+            cell.mainLabel.text = String(city.currentWeather?.current.pressure_mb ?? 0)
+            
         }
         return cell
     }
